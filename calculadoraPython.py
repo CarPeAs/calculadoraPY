@@ -99,7 +99,7 @@ def multiplica(num):
 #---------------funcionDivision-----------------
 contador_division=0
 
-def multiplica(num):
+def divide (num):
     global operacion
     global resultado
     global num1
@@ -122,6 +122,11 @@ def multiplica(num):
     operacion="division"
     resetPantalla=True
 
+#---------------funcionBorrarTodo-----------------
+def borrar():
+    pass
+    #numeroPantalla.set=0
+    #resultado=0
 
 #---------------funcionTotal-----------------
 
@@ -130,6 +135,7 @@ def total():
     global operacion
     global contador_resta
     global contador_multiplica
+    global contador_division
 
     if operacion=="suma":
         numeroPantalla.set(resultado+int(numeroPantalla.get()))
@@ -144,11 +150,6 @@ def total():
         numeroPantalla.set(int(resultado)/int(numeroPantalla.get()))
         resultado=0
     
-#---------------funcionBorrarTodo-----------------
-def borrar():
-    pass
-    #numeroPantalla.set=0
-    #resultado=0
 
 #---------------fila1-----------------
 boton7=Button(miFrame,text="7",width=3,command=lambda:numeroPulsado("7"))
@@ -157,7 +158,7 @@ boton8=Button(miFrame,text="8",width=3,command=lambda:numeroPulsado("8"))
 boton8.grid(row=2,column=2)
 boton6=Button(miFrame,text="9",width=3,command=lambda:numeroPulsado("9"))
 boton6.grid(row=2,column=3)
-botonDiv=Button(miFrame,text="/",width=3,command=lambda:division(numeroPantalla.get()))
+botonDiv=Button(miFrame,text="/",width=3,command=lambda:divide(numeroPantalla.get()))
 botonDiv.grid(row=2,column=4)
 
 #---------------fila2-----------------
