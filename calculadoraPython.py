@@ -62,10 +62,42 @@ def resta(num):
         else:
             resultado=int(resultado)-int(num)
 
+        numeroPantalla.set(resultado)
+        resultado=numeroPantalla.get()
+    
     contador_resta=contador_resta+1
     operacion="resta"
     resetPantalla=True
     
+#---------------funcionMultiplica-----------------
+num2=0
+contador_multiplica=0
+
+def multiplica(num):
+    global operacion
+    global resultado
+    global num2
+    global contador_multiplica
+    global resetPantalla
+
+    if contador_multiplica==0:
+        num2=int(num)
+        resultado=num2
+    else:
+        if contador_multiplica==1:
+            resultado=num2*int(num)
+        else:
+            resultado=int(resultado)*int(num)
+
+        numeroPantalla.set(resultado)
+        resultado=numeroPantalla.get()
+    
+    contador_multiplica=contador_multiplica+1
+    operacion="multiplica"
+    resetPantalla=True
+
+
+
 
 #---------------funcionTotal-----------------
 
@@ -73,6 +105,7 @@ def total():
     global resultado
     global operacion
     global contador_resta
+    global contador_multiplica
 
     if operacion=="suma":
         numeroPantalla.set(resultado+int(numeroPantalla.get()))
@@ -80,11 +113,17 @@ def total():
     elif operacion=="resta":
         numeroPantalla.set(int(resultado)-int(numeroPantalla.get()))
         resultado=0
+    elif operacion=="multiplica":
+        numeroPantalla.set(int(resultado)*int(numeroPantalla.get()))
+        resultado=0
     
     
-
+#---------------funcionBorrarTodo-----------------
 def borrar():
     pass
+    #numeroPantalla.set=0
+    #resultado=0
+
 #---------------fila1-----------------
 boton7=Button(miFrame,text="7",width=3,command=lambda:numeroPulsado("7"))
 boton7.grid(row=2,column=1)
@@ -102,7 +141,7 @@ boton5=Button(miFrame,text="5",width=3,command=lambda:numeroPulsado("5"))
 boton5.grid(row=3,column=2)
 boton9=Button(miFrame,text="6",width=3,command=lambda:numeroPulsado("6"))
 boton9.grid(row=3,column=3)
-botonMult=Button(miFrame,text="X",width=3)
+botonMult=Button(miFrame,text="X",width=3,command=lambda:multiplica(numeroPantalla.get()))
 botonMult.grid(row=3,column=4)
 
 #---------------fila3-----------------
@@ -125,7 +164,8 @@ botonEqual.grid(row=5,column=3)
 botonSum=Button(miFrame,text="+",width=3,command=lambda:suma(numeroPantalla.get()))
 botonSum.grid(row=5,column=4)
 
-
-
+#---------------fila5-----------------
+#botonBorra=Button(miFrame,text="C",width=3,command=lambda:borrar())
+#botonBorra.grid(row=6,column=4)
 
 raiz.mainloop()
