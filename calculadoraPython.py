@@ -2,18 +2,21 @@ from __future__ import division
 from codecs import BufferedIncrementalEncoder
 from textwrap import fill
 from tkinter import *
+from tkinter.tix import DisplayStyle
 from turtle import right
 
 raiz=Tk()
+raiz.title("Basic Calculator")
 
 miFrame=Frame(raiz)
-miFrame.pack(fill='both')#, expand=False
+miFrame.pack()#fill='both', expand=False
 miFrame.config(cursor='hand2')
 operacion=""
 resetPantalla=False
 resultado=0
 
 #---------------pantalla-----------------
+#-----------------fila1------------------
 numeroPantalla=StringVar()
 pantalla=Entry(miFrame,textvariable=numeroPantalla)
 pantalla.grid(row=1,column=1,padx=5,pady=5,columnspan=4)
@@ -124,7 +127,7 @@ def divide (num):
 
 #---------------funcionBorrarTodo-----------------
 def borrar():
-    pass
+    DisplayStyle.delete(0,END)
     #numeroPantalla.set=0
     #resultado=0
 
@@ -151,48 +154,54 @@ def total():
         resultado=0
     
 
-#---------------fila1-----------------
-boton7=Button(miFrame,text="7",width=3,command=lambda:numeroPulsado("7"))
-boton7.grid(row=2,column=1)
-boton8=Button(miFrame,text="8",width=3,command=lambda:numeroPulsado("8"))
-boton8.grid(row=2,column=2)
-boton6=Button(miFrame,text="9",width=3,command=lambda:numeroPulsado("9"))
-boton6.grid(row=2,column=3)
-botonDiv=Button(miFrame,text="/",width=3,command=lambda:divide(numeroPantalla.get()))
-botonDiv.grid(row=2,column=4)
-
 #---------------fila2-----------------
-boton4=Button(miFrame,text="4",width=3,command=lambda:numeroPulsado("4"))
-boton4.grid(row=3,column=1)
-boton5=Button(miFrame,text="5",width=3,command=lambda:numeroPulsado("5"))
-boton5.grid(row=3,column=2)
-boton9=Button(miFrame,text="6",width=3,command=lambda:numeroPulsado("6"))
-boton9.grid(row=3,column=3)
+botonClear=Button(miFrame,text="C",width=3,command=lambda:borrar())
+botonClear.grid(row=2,column=1)
+botonDiv=Button(miFrame,text="÷",width=3,command=lambda:divide(numeroPantalla.get()))
+botonDiv.grid(row=2,column=2)
 botonMult=Button(miFrame,text="X",width=3,command=lambda:multiplica(numeroPantalla.get()))
-botonMult.grid(row=3,column=4)
+botonMult.grid(row=2,column=3)
+botonBorrar=Button(miFrame,text="⇦",width=3)
+botonBorrar.grid(row=2,column=4)
 
 #---------------fila3-----------------
-boton1=Button(miFrame,text="1",width=3,command=lambda:numeroPulsado("1"))
-boton1.grid(row=4,column=1)
-boton2=Button(miFrame,text="2",width=3,command=lambda:numeroPulsado("2"))
-boton2.grid(row=4,column=2)
-boton3=Button(miFrame,text="3",width=3,command=lambda:numeroPulsado("3"))
-boton3.grid(row=4,column=3)
+#OTRA OPCIÓN command=lambad:numeroPulsado(7)
+boton7=Button(miFrame,text="7",width=3,command=lambda:numeroPulsado("7"))
+boton7.grid(row=3,column=1)
+boton8=Button(miFrame,text="8",width=3,command=lambda:numeroPulsado("8"))
+boton8.grid(row=3,column=2)
+boton6=Button(miFrame,text="9",width=3,command=lambda:numeroPulsado("9"))
+boton6.grid(row=3,column=3)
 botonRes=Button(miFrame,text="-",width=3,command=lambda:resta(numeroPantalla.get()))
-botonRes.grid(row=4,column=4)
+botonRes.grid(row=3,column=4)
+
+#---------------fila3-----------------
+boton4=Button(miFrame,text="4",width=3,command=lambda:numeroPulsado("4"))
+boton4.grid(row=4,column=1)
+boton5=Button(miFrame,text="5",width=3,command=lambda:numeroPulsado("5"))
+boton5.grid(row=4,column=2)
+boton6=Button(miFrame,text="6",width=3,command=lambda:numeroPulsado("6"))
+boton6.grid(row=4,column=3)
+botonSum=Button(miFrame,text="+",width=3,command=lambda:suma(numeroPantalla.get()))
+botonSum.grid(row=4,column=4)
 
 #---------------fila4-----------------
-boton0=Button(miFrame,text="0",width=3,command=lambda:numeroPulsado("0"))
-boton0.grid(row=5,column=1)
-botonCom=Button(miFrame,text=",",width=3,command=lambda:numeroPulsado(","))
-botonCom.grid(row=5,column=2)
-botonEqual=Button(miFrame,text="=",width=3,command=lambda:total())
-botonEqual.grid(row=5,column=3)
-botonSum=Button(miFrame,text="+",width=3,command=lambda:suma(numeroPantalla.get()))
-botonSum.grid(row=5,column=4)
+boton1=Button(miFrame,text="1",width=3,command=lambda:numeroPulsado("1"))
+boton1.grid(row=5,column=1)
+boton2=Button(miFrame,text="2",width=3,command=lambda:numeroPulsado("2"))
+boton2.grid(row=5,column=2)
+boton3=Button(miFrame,text="3",width=3,command=lambda:numeroPulsado("3"))
+boton3.grid(row=5,column=3)
+botonRes=Button(miFrame,text="=",width=3,command=lambda:total())
+botonRes.grid(row=5,column=4,rowspan=2,sticky=N+S)
 
 #---------------fila5-----------------
-#botonBorra=Button(miFrame,text="C",width=3,command=lambda:borrar())
-#botonBorra.grid(row=6,column=4)
+botonPorcen=Button(miFrame,text="%",width=3,command=lambda:numeroPulsado("%"))
+botonPorcen.grid(row=6,column=1)
+boton0=Button(miFrame,text="0",width=3,command=lambda:numeroPulsado("0"))
+boton0.grid(row=6,column=2)
+botonCom=Button(miFrame,text=",",width=3,command=lambda:numeroPulsado(","))
+botonCom.grid(row=6,column=3)
+
 
 raiz.mainloop()
