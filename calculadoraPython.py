@@ -1,3 +1,4 @@
+from __future__ import division
 from codecs import BufferedIncrementalEncoder
 from textwrap import fill
 from tkinter import *
@@ -70,22 +71,21 @@ def resta(num):
     resetPantalla=True
     
 #---------------funcionMultiplica-----------------
-num2=0
 contador_multiplica=0
 
 def multiplica(num):
     global operacion
     global resultado
-    global num2
+    global num1
     global contador_multiplica
     global resetPantalla
 
     if contador_multiplica==0:
-        num2=int(num)
-        resultado=num2
+        num1=int(num)
+        resultado=num1
     else:
         if contador_multiplica==1:
-            resultado=num2*int(num)
+            resultado=num1*int(num)
         else:
             resultado=int(resultado)*int(num)
 
@@ -96,7 +96,31 @@ def multiplica(num):
     operacion="multiplica"
     resetPantalla=True
 
+#---------------funcionDivision-----------------
+contador_division=0
 
+def multiplica(num):
+    global operacion
+    global resultado
+    global num1
+    global contador_division
+    global resetPantalla
+
+    if contador_division==0:
+        num1=int(num)
+        resultado=num1
+    else:
+        if contador_division==1:
+            resultado=num1/int(num)
+        else:
+            resultado=int(resultado)/int(num)
+
+        numeroPantalla.set(resultado)
+        resultado=numeroPantalla.get()
+    
+    contador_division=contador_division+1
+    operacion="division"
+    resetPantalla=True
 
 
 #---------------funcionTotal-----------------
@@ -116,7 +140,9 @@ def total():
     elif operacion=="multiplica":
         numeroPantalla.set(int(resultado)*int(numeroPantalla.get()))
         resultado=0
-    
+    elif operacion=="division":
+        numeroPantalla.set(int(resultado)/int(numeroPantalla.get()))
+        resultado=0
     
 #---------------funcionBorrarTodo-----------------
 def borrar():
@@ -131,7 +157,7 @@ boton8=Button(miFrame,text="8",width=3,command=lambda:numeroPulsado("8"))
 boton8.grid(row=2,column=2)
 boton6=Button(miFrame,text="9",width=3,command=lambda:numeroPulsado("9"))
 boton6.grid(row=2,column=3)
-botonDiv=Button(miFrame,text="/",width=3)
+botonDiv=Button(miFrame,text="/",width=3,command=lambda:division(numeroPantalla.get()))
 botonDiv.grid(row=2,column=4)
 
 #---------------fila2-----------------
