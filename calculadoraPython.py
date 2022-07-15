@@ -9,6 +9,7 @@ miFrame=Frame(raiz)
 miFrame.pack(fill='both')#, expand=False
 miFrame.config(cursor='hand2')
 operacion=""
+resetPantalla=False
 resultado=0
 
 #---------------pantalla-----------------
@@ -21,9 +22,11 @@ pantalla.config(bg="black",fg="#03f943",justify="right")#03f943
 
 def numeroPulsado(num):
     global operacion
-    if operacion!="":
+    global resetPantalla
+
+    if resetPantalla!=False:
         numeroPantalla.set(num)
-        operacion=""
+        resetPantalla=False
     else:
         numeroPantalla.set(numeroPantalla.get()+num)
    
@@ -31,21 +34,57 @@ def numeroPulsado(num):
 def suma(num):
     global operacion
     global resultado
+    global resetPantalla
 
     resultado+=int(num)#float
     operacion="suma"
+    resetPantalla=True
 
     numeroPantalla.set(resultado)
+
+#---------------funcionResta-----------------
+num1=0
+contador_resta=0
+
+def resta(num):
+    global operacion
+    global resultado
+    global num1
+    global contador_resta
+    global resetPantalla
+
+    if contador_resta==0:
+        num1=int(num)
+        resultado=num1
+    else:
+        if contador_resta==1:
+            resultado=num1-int(num)
+        else:
+            resultado=int(resultado)-int(num)
+
+    contador_resta=contador_resta+1
+    operacion="resta"
+    resetPantalla=True
+    
 
 #---------------funcionTotal-----------------
 
 def total():
     global resultado
+    global operacion
+    global contador_resta
 
-    numeroPantalla.set(resultado+int(numeroPantalla.get()))
+    if operacion=="suma":
+        numeroPantalla.set(resultado+int(numeroPantalla.get()))
+        resultado=0
+    elif operacion=="resta":
+        numeroPantalla.set(int(resultado)-int(numeroPantalla.get()))
+        resultado=0
+    
+    
 
-    resultado=0
-
+def borrar():
+    pass
 #---------------fila1-----------------
 boton7=Button(miFrame,text="7",width=3,command=lambda:numeroPulsado("7"))
 boton7.grid(row=2,column=1)
@@ -73,7 +112,7 @@ boton2=Button(miFrame,text="2",width=3,command=lambda:numeroPulsado("2"))
 boton2.grid(row=4,column=2)
 boton3=Button(miFrame,text="3",width=3,command=lambda:numeroPulsado("3"))
 boton3.grid(row=4,column=3)
-botonRes=Button(miFrame,text="-",width=3)
+botonRes=Button(miFrame,text="-",width=3,command=lambda:resta(numeroPantalla.get()))
 botonRes.grid(row=4,column=4)
 
 #---------------fila4-----------------
